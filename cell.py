@@ -12,7 +12,7 @@ class Cell:
         self.has_bottom_wall = True
         self._win = window
         self.visited = False
-        
+
     def draw(self ,x1, y1, x2, y2):
         self._x1 = x1
         self._x2 = x2
@@ -54,7 +54,7 @@ class Cell:
         cell_center_y2 = (to_cell._y1+to_cell._y2)/2
         if undo == False:
             line=Line(Point(cell__center_x1,cell__center_y1),Point(cell_center_x2,cell_center_y2))
-            self._win.draw_line(line,"red")
+            self._win.draw_line(line,"gray")
         else:
             line=Line(Point(cell__center_x1,cell__center_y1),Point(cell_center_x2,cell_center_y2))
-            self._win.draw_line(line,"gray")
+            self._win.draw_line(line,"red")
