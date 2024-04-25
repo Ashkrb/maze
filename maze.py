@@ -66,49 +66,62 @@ class Maze:
     def _break_walls_r(self,i,j):
         self._cells[i][j].visited = True
         while True:
-            cell_list = []
-            if i > 0 and self._cells[i-1][j].visited == False:
-                cell_list.append[self._cells[i-1][j]]
-
-            if i < self.num_cols and self._cells[i+1][j].visited == False:
-                cell_list.append[self._cells[i+1][j]]
-
-            if j > 0 and self._cells[i][j-1].visited == False:
-                cell_list.append[self._cells[i][j-1]]
-
-            if j < self.num_rows and self._cells[i][j+1].visited == False:
-                cell_list.append[self._cells[i][j+1]]
            
+            cell_list = []
+            if i > 0 :
+                if self._cells[i-1][j].visited == False:
+                
+                 cell_list.append((i-1,j))
+
+            if i < self.num_cols-1 :
+                if self._cells[i+1][j].visited == False:
+                
+                    cell_list.append((i+1,j))
+            if j > 0 :
+                if self._cells[i][j-1].visited == False:
+                
+                    cell_list.append((i,j-1))
+            if j < self.num_rows-1:
+                if self._cells[i][j+1].visited == False:
+                
+                    cell_list.append((i,j+1))
             if len(cell_list) == 0:
                self._draw_cell(i,j)
                return
-            index = random.randrange(0,len(cell_list)-1)
-            if index == 0:
+            
+            r_index = random.randrange(0,len(cell_list))
+            index = cell_list[r_index]
+            
+
+            if index[0] == i-1:
                 self._cells[i][j].has_left_wall = False
                 self._cells[i-1][j].has_right_wall = False
                 self._draw_cell(i,j)
                 self._draw_cell(i-1,j)
-                self._break_walls_r(i-1,j)
-            if index == 1:
+                
+            if index[0] == i+1:
                 self._cells[i][j].has_right_wall = False
                 self._cells[i+1][j].has_left_wall = False
                 self._draw_cell(i,j)
                 self._draw_cell(i+1,j)
-                self._break_walls_r(i+1,j)
+                
 
-            if index == 2:
-                self._cells[i][j].has_bottom_wall = False
+            if index[1] == j-1:
                 self._cells[i][j].has_top_wall = False
+                self._cells[i][j-1].has_bottom_wall = False
                 self._draw_cell(i,j)
                 self._draw_cell(i,j-1)
-                self._break_walls_r(i,j-1)
+                
 
-            if index == 3:
-                self._cells[i][j].has_top_wall = False
+            if index[1] == j+1:
                 self._cells[i][j].has_bottom_wall = False
+                self._cells[i][j+1].has_top_wall = False
                 self._draw_cell(i,j)
                 self._draw_cell(i,j+1)
-                self._break_walls_r(i,j+1)
+               
+            self._break_walls_r(index[0],index[1])
+            
+
         
                 
 
